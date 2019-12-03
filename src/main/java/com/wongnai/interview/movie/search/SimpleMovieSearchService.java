@@ -24,8 +24,17 @@ public class SimpleMovieSearchService implements MovieSearchService {
 		ArrayList<MovieData> movieDataList = movieDataService.fetchAll();
 		List<Movie> movieList = new ArrayList<Movie>();
 		for (MovieData movie : movieDataList){
-			if (movie.getTitle().contains(" "+queryText)||movie.getTitle().contains(queryText+" ")){
-				movieList.add(new Movie(movie.getTitle()));
+			String movieTitle = movie.getTitle();
+			if (movieTitle.contains(queryText)){
+				if (movieTitle.contains(" "+queryText+" ")){
+					movieList.add(new Movie(movieTitle));
+				}
+				else if (movieTitle.contains(" "+queryText) && movieTitle.indexOf(queryText) + queryText.length() == movieTitle.length()){
+					movieList.add(new Movie(movieTitle));
+				}
+				else if (movieTitle.contains(queryText+ " ") && movieTitle.indexOf(queryText) == 0){
+					movieList.add(new Movie(movieTitle));
+				}
 			}
 		}
 		return movieList;
