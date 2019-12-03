@@ -1,6 +1,7 @@
 package com.wongnai.interview.movie.external;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.wongnai.interview.movie.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestOperations;
@@ -8,6 +9,7 @@ import org.springframework.web.client.RestOperations;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Component
 public class MovieDataServiceImpl implements MovieDataService {
@@ -29,7 +31,7 @@ public class MovieDataServiceImpl implements MovieDataService {
 		String data = this.restTemplate.getForObject(MOVIE_DATA_URL,String.class);
 		MoviesResponse response = null;
 		try {
-			response = objectMapper.readValue(data, new TypeReference(){});
+			response = objectMapper.readValue(data, new TypeReference<MoviesResponse>(){});
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
