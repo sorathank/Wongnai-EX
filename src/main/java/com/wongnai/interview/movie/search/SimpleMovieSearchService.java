@@ -1,7 +1,9 @@
 package com.wongnai.interview.movie.search;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.wongnai.interview.movie.external.MovieData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,13 @@ public class SimpleMovieSearchService implements MovieSearchService {
 		//TODO: Step 2 => Implement this method by using data from MovieDataService
 		// All test in SimpleMovieSearchServiceIntegrationTest must pass.
 		// Please do not change @Component annotation on this class
-		return null;
+		ArrayList<MovieData> movieDataList = movieDataService.fetchAll();
+		List<Movie> movieList = new ArrayList<Movie>();
+		for (MovieData movie : movieDataList){
+			if (movie.getTitle().contains(" "+queryText)||movie.getTitle().contains(queryText+" ")){
+				movieList.add(new Movie(movie.getTitle()));
+			}
+		}
+		return movieList;
 	}
 }
