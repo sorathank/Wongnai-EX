@@ -22,19 +22,25 @@ public class SimpleMovieSearchService implements MovieSearchService {
 		// All test in SimpleMovieSearchServiceIntegrationTest must pass.
 		// Please do not change @Component annotation on this class
 		ArrayList<MovieData> movieDataList = movieDataService.fetchAll();
+		queryText = queryText.toLowerCase();
 		List<Movie> movieList = new ArrayList<Movie>();
 		for (MovieData movie : movieDataList){
-			String movieTitle = movie.getTitle();
+
+			String movieTitle = movie.getTitle().toLowerCase();
+
 			if (movieTitle.contains(queryText)){
-				if (movieTitle.contains(" "+queryText+" ")){
-					movieList.add(new Movie(movieTitle));
+				System.out.println(movie.getTitle() + " is contain " + queryText + " " + (movieTitle.contains(" "+queryText+" ") ||
+						(movieTitle.contains(" "+queryText) && movieTitle.indexOf(queryText) + queryText.length() == movieTitle.length()) ||
+						(movieTitle.contains(queryText+ " ") && movieTitle.indexOf(queryText) == 0) ));
+				Movie wantedMovie = new Movie(movie.getTitle());
+				wantedMovie.getActors().addAll(movie.getCast());
+
+				if (movieTitle.contains(" "+queryText+" ") ||
+						(movieTitle.contains(" "+queryText) && movieTitle.indexOf(queryText) + queryText.length() == movieTitle.length()) ||
+						(movieTitle.contains(queryText+ " ") && movieTitle.indexOf(queryText) == 0)){
+					movieList.add(wantedMovie);
 				}
-				else if (movieTitle.contains(" "+queryText) && movieTitle.indexOf(queryText) + queryText.length() == movieTitle.length()){
-					movieList.add(new Movie(movieTitle));
-				}
-				else if (movieTitle.contains(queryText+ " ") && movieTitle.indexOf(queryText) == 0){
-					movieList.add(new Movie(movieTitle));
-				}
+
 			}
 		}
 		return movieList;
