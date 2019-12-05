@@ -27,12 +27,14 @@ public class SimpleMovieSearchService implements MovieSearchService {
 		for (MovieData movie : movieDataList){
 
 			String movieTitle = movie.getTitle().toLowerCase();
+
+
+				Movie wantedMovie = new Movie(movie.getTitle());
+				wantedMovie.getActors().addAll(movie.getCast());
+
 				if (movieTitle.contains(" "+queryText+" ") ||
 						(movieTitle.contains(" "+queryText) && movieTitle.indexOf(queryText) + queryText.length() == movieTitle.length()) ||
 						(movieTitle.contains(queryText+ " ") && movieTitle.indexOf(queryText) == 0)){
-					Movie wantedMovie = new Movie(movie.getTitle());
-					wantedMovie.getActors().addAll(movie.getCast());
-
 					movieList.add(wantedMovie);
 				}
 

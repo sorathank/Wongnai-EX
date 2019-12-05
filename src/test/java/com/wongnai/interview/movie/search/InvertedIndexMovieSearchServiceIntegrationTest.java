@@ -72,7 +72,6 @@ public class InvertedIndexMovieSearchServiceIntegrationTest {
 	@Test
 	public void testMultiKeywordsCaseInsensitive() {
 		List<Movie> result = searchService.search("gLoRiOuS OnE");
-
 		Assert.assertThat(result.size(), Matchers.equalTo(2));
 		Assert.assertThat(MovieTestHelper.toMovieNames(result),
 				Matchers.hasItems("One Glorious Day", "One Glorious Night"));
