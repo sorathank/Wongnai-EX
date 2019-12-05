@@ -22,6 +22,7 @@ public class DatabaseMovieSearchServiceIntegrationTest {
 	@Test
 	public void testFindSingleKeywordContainInTitle() {
 		List<Movie> result = searchService.search("Glorious");
+
 		assertGloriousMovieKeyword(result);
 	}
 

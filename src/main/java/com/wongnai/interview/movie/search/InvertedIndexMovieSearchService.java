@@ -26,6 +26,7 @@ public class InvertedIndexMovieSearchService implements MovieSearchService {
 
 	@Override
 	public List<Movie> search(String queryText) {
+
 		//TODO: Step 4 => Please implement in-memory inverted index to search movie by keyword.
 		// You must find a way to build inverted index before you do an actual search.
 		// Inverted index would looks like this:
